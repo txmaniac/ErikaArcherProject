@@ -4,16 +4,56 @@ using UnityEngine;
 
 public class ConsumableInventoryManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject player;
+    public GameObject inventoryPanel;
+    public static ConsumableInventoryManager instance;
+    public List<Consumable> list = new List<Consumable>();
 
-    void Start()
+    public void UpdateSlots()
     {
-        
+        int index = 0;
+        foreach (Transform child in inventoryPanel.transform)
+        {
+            InventorySlotController slot = child.GetComponent<InventorySlotController>();
+
+            if (index < list.Count)
+            {
+                slot.consumable = list[index];
+            }
+
+            else
+            {
+                slot.consumable = null;
+            }
+
+            slot.UpdateInfo();
+            index++;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Add(Consumable consumable)
     {
-        
+        if (list.Count < 35)
+        {
+            list.Add(consumable);
+        }
+        UpdateSlots();
+    }
+
+    public void Remove(Consumable consumable)
+    {
+        list.Remove(consumable);
+        UpdateSlots();
+    }
+
+    private void Start()
+    {
+        instance = this;
+        UpdateSlots();
+    }
+
+    public void InventoryMenu()
+    {
+
     }
 }
