@@ -11,6 +11,7 @@ public class CoreAI : Monobehaviour {
     public AIMovement AI_move;
     public AIVision AI_vision;
     public Vector3 dest;
+    public Gameobject player;
     
     public void CoreAIStart(){
         AI_transform = GetComponent<Transform>();
@@ -18,6 +19,7 @@ public class CoreAI : Monobehaviour {
         AI_nav = GetComponent<NavMeshAgent>();
         AI_move = new AIMovement(this.gameobject);
         AI_vision = new AIVision(this.gameobject);
+        player = Gameobject.FindWithTag("Player");
     }
     
     public void setDest(Vector3 d){
@@ -56,15 +58,23 @@ public class CoreAI : Monobehaviour {
         AI_move.LookAt(vec);
     }
     
-    public void inFieldofView(Gameobject obj){
-        AI_vision.inFieldofView(obj);
+    public bool inFieldofView(Gameobject obj){
+        return AI_vision.inFieldofView(obj);
     }
     
-    public void inFieldofView(Vector3 vec){
-        AI_vision.inFieldofView(vec);
+    public bool inFieldofView(Vector3 vec){
+        return AI_vision.inFieldofView(vec);
     }
     
-    public void inFieldofView(){
-        AI_vision.inFieldofView(dest);
+    public bool inFieldofView(){
+        return AI_vision.inFieldofView(dest);
+    }
+    
+    public void stop(){
+        AI_move.stop();
+    }
+    
+    public float Distance(){
+        return Vector3.Distance(AI_transform.position,player.transform.position);
     }
 }
