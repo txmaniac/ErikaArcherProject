@@ -53,11 +53,11 @@ public class CharacterStats : MonoBehaviour
             Health = maxHealth;
         }
     }
-    public void ApplyDamage()
+    public void ApplyDamage(float damage)
     {
-        if (Health - damageStrength >= minHealth)
+        if (Health - damage <= minHealth)
         {
-            Health -= damageStrength;
+            Health -= damage;
         }
 
         else
