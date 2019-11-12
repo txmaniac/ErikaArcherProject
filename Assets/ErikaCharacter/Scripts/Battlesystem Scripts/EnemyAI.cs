@@ -37,4 +37,8 @@ public class EnemyAI : CoreAI {
     public void BattleInit(){
         // TODO : Call the TurnBasedBattleSystem here.
     }
+    
+    public void AIAttack(){
+        // this involves random selection of attacks based which are based on CharacterStats attached to every character in the game.
+    }
 }
