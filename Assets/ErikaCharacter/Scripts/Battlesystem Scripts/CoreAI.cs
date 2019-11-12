@@ -26,7 +26,7 @@ public class CoreAI : Monobehaviour {
         dest = d;
     }
     
-    public void RandomDestination(){
+    public void RandomDestination(float walkDist){
         NavMeshHit hit;
         Vector3 randomDirection = Random.insideUnitSphere * walkDist;
         randomDirection += my_transform.position;
