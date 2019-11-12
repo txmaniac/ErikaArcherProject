@@ -46,8 +46,8 @@ public class AIMovement {
 	// NPC looking at a certain direction
 	public void LookAt(Vector3 vec){
 		Vector3 lookDirection = pos - transform.position;
-        lookDirection.y = 0f;
-        Quaternion newRotation = Quaternion.LookRotation(lookDirection);
-        rb.MoveRotation(newRotation);
+        	lookDirection.y = 0f;
+        	Quaternion newRotation = Quaternion.LookRotation(lookDirection);
+        	rb.MoveRotation(newRotation);
 	}
 }
