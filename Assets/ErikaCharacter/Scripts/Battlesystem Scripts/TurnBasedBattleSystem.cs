@@ -17,6 +17,7 @@ public class TurnBasedBattleSystem : MonoBehaviour
     private bool attackTurn;
     private Animator anim;
     public int a = 1;
+    
     void Start()
     {
         // FirstTurnAllocator chooses the first Turn based on a biased probability allocator
@@ -25,7 +26,7 @@ public class TurnBasedBattleSystem : MonoBehaviour
         playerRigidBody = playerCharacter.GetComponent<Rigidbody>();
         enemyCharacter = GameObject.FindGameObjectWithTag("Enemy");
         enemyRigidBody = enemyCharacter.GetComponent<Rigidbody>();
-        attackTurn = enemyCharacter.GetComponent<NavMeshAgent>();
+        attackerNPC = enemyCharacter.GetComponent<NavMeshAgent>();
         anim = enemyCharacter.GetComponent<Animator>();
     }
 
@@ -43,71 +44,13 @@ public class TurnBasedBattleSystem : MonoBehaviour
         }
     }
 
-    public void GameMove(GameObject attacker, GameObject attackee)
+    public void GameMove(GameObject attacker, GameObject defender)
     {
-        /*Vector3 direction = attackee.transform.position - attacker.transform.position;
-        direction = direction.normalized;
-        Vector3 offset;
-        float stopping_dist = 2f;
-        // call attacker NPC to move towards the attackee and when reached a stopping distance of dist, start attacking
-        // execute animations based on button clicks if character is player.
-        if ((attackee.transform.position - attacker.transform.position).magnitude > stopping_dist)
-        {*/
-        if (attacker.CompareTag("Player"))
-        {
-            // movement script for character towards enemy
-            /*attackSpeed = attacker.GetComponent<CharacterStats>().movementSpeed;
-            offset = direction * stopping_dist;
-            attacker.transform.position += (direction * attackSpeed - offset) * Time.deltaTime;
-            *///anim.SetFloat("forward", attacker.transform.position.z);
-              // button tags are given as abstraction
-              // assumption for now is we have three combo attacks and three magical attacks
-
-
-            // performing the visual part of the attack
-            // we can add all the elements which make our attack more visual here
-            switch (a)
-            {
-                case 1:
-                    // 1 melee
-                    anim.SetTrigger("perform_attack1");
-                    break;
-                case 2:
-                    // sword
-                    anim.SetTrigger("perform_attack2");
-                    break;
-                case 3:
-                    // bow and arrow
-                    anim.SetTrigger("perform_attack3");
-                    break;
-                case 4:
-                    // mystic attack 1
-                    anim.SetTrigger("perform_attack4");
-                    break;
-                case 5:
-                    // mystic attack 2
-                    anim.SetTrigger("perform_attack5");
-                    break;
-                case 6:
-                    // mystic attack 3
-                    anim.SetTrigger("perform_attack6");
-                    break;
-            }
-            CallAttack(a);
-        }
-        // performing the attack (the game manager part)
-        else
-        {
-            // movement script for enemy to move near character
-            /*attackSpeed = attacker.GetComponent<CharacterStats>().movementSpeed;
-            offset = direction * stopping_dist;
-            attacker.transform.position += (direction * attackSpeed - offset) * Time.deltaTime;
-            *///anim.SetFloat("forward", attacker.transform.position.z);
-
-            // this part needs certain NavMeshAgent attributes which I'm working on currently. Reminder : Complete by 4th OCT 2019
-            // performing the attack (the game manager part)
-            CallAttack(Random.Range(1, 6));
-        }
+        // TODO: A menu system which communicates with this function in order to perform an action
+        // This function basically handles the actions performed by both player and AI
+        // Modular function which involves a conditional arg between player and AI to toggle and perform actions
+        
+        
     }
 
     public bool FirstTurnAllocator()
