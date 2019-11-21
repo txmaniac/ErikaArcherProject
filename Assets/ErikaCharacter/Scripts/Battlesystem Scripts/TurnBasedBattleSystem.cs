@@ -15,6 +15,7 @@ public class TurnBasedBattleSystem : MonoBehaviour
     public int a = 1;
     public ScenePoint playerPosition;
     public ScenePoint enemyPosition;
+    public GameManager battleManager;
     
     void Start()
     {
@@ -22,11 +23,12 @@ public class TurnBasedBattleSystem : MonoBehaviour
         attackTurn = FirstTurnAllocator();
         playerCharacter = GameObject.FindGameObjectWithTag("Player");
         enemyCharacter = GameObject.FindGameObjectWithTag("Enemy");
+        BattleSceneSetup();
     }   
     
     public void BattleSceneSetup(){
-        playerCharacter.transform.position = playerPosition.position;
-        enemyCharacter.transform.position = enemyPosition.position;
+        playerCharacter.transform = playerPosition;
+        enemyCharacter.transform = enemyPosition;
     }
     
     public void Update()
