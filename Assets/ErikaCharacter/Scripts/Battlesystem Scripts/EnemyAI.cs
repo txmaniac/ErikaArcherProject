@@ -10,6 +10,7 @@ public class EnemyAI : CoreAI {
     public SphereCollider collider;
     public float minDistance;
     public float walkingDist;
+    private static bool isWander = true;
     
     public void Start(){
         player = Gameobject.FindWithTag("Player");
@@ -20,6 +21,16 @@ public class EnemyAI : CoreAI {
         CoreAIStart();
         RandomDestination(walkingDist);
         codeComponent = GetComponent<EnemyAI>();
+    }
+    
+    public void Update(){
+        if(isWander){
+            Wander();
+        }
+        
+        else{
+            Stop();
+        }
     }
     
     public void Wander(){
@@ -36,6 +47,7 @@ public class EnemyAI : CoreAI {
         DontDestroyOnLoad(this.gameObject);
         SceneManager.LoadScene("BattleScene",SceneMode.Additive);
         codeComponent.enabled = false;
+        isWander = false;
     }
     
     public void OnTriggerEnter(Collider other){
@@ -48,7 +60,13 @@ public class EnemyAI : CoreAI {
     // randomly choose attacks
     
     public void AIAttack(){
-           
+        if(UnityEngine.Random.Range(0,2) < 1){
+            Attack1();
+        }
+        
+        else if (UnityEngine.Random.Range(0,2) == 1){
+            Attack2();
+        }
     }
     
     // Helper functions for animations
