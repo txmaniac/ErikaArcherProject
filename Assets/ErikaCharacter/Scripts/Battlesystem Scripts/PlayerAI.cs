@@ -7,12 +7,13 @@ using System.Collections.Generic;
 public class PlayerAI : CoreAI{
     
     public Vector3 offset;
-    public GameObject[] enemy;
+    public GameObject enemy;
     public void Start(){
         enemy = GameObject.FindGameObjectsWithTag("Enemy");
         CoreAIStart();
     }
     
+    // move towards the enemy
     public void MoveToEnemy(GameObject enemy){
         Transform t = enemy.GetComponent<Transform>();
         if(t==null)
@@ -21,15 +22,24 @@ public class PlayerAI : CoreAI{
             AI_move.moveTo(t.position-offset);
     }
     
+    // look at the enemy
     public void LookAtEnemy(GameObject enemy){
         AI_move.LookAt(enemy);
     }
     
-    // require a update function which listens to the player's input via GUI
+    // attack functions
     
+    public void Melee(){
     
-    // Button-centric attacking function
-    public AttackEnemy(int index){
-        MoveToEnemy(enemy[index]);
     }
+    
+    public void SwordHit(){
+    
+    }
+    
+    public void BowArrow(){
+    
+    }
+    
+    
 }
