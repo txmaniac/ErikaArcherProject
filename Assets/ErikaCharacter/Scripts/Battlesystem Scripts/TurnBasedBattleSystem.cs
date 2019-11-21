@@ -10,26 +10,25 @@ public class TurnBasedBattleSystem : MonoBehaviour
 
     public GameObject playerCharacter;
     public GameObject enemyCharacter;
-    private Rigidbody playerRigidBody;
-    private Rigidbody enemyRigidBody;
     public float attackSpeed;
-    private NavMeshAgent attackerNPC;
     private bool attackTurn;
-    private Animator anim;
     public int a = 1;
+    public ScenePoint playerPosition;
+    public ScenePoint enemyPosition;
     
     void Start()
     {
         // FirstTurnAllocator chooses the first Turn based on a biased probability allocator
         attackTurn = FirstTurnAllocator();
         playerCharacter = GameObject.FindGameObjectWithTag("Player");
-        playerRigidBody = playerCharacter.GetComponent<Rigidbody>();
         enemyCharacter = GameObject.FindGameObjectWithTag("Enemy");
-        enemyRigidBody = enemyCharacter.GetComponent<Rigidbody>();
-        attackerNPC = enemyCharacter.GetComponent<NavMeshAgent>();
-        anim = enemyCharacter.GetComponent<Animator>();
+    }   
+    
+    public void BattleSceneSetup(){
+        playerCharacter.transform.position = playerPosition.position;
+        enemyCharacter.transform.position = enemyPosition.position;
     }
-
+    
     public void Update()
     {
 
