@@ -89,5 +89,6 @@ public class EnemyAI : CoreAI {
         Stop();
         yield return new WaitForSeconds(5f);
         RandomDestination(walkingDist);
+        
     }
 }
