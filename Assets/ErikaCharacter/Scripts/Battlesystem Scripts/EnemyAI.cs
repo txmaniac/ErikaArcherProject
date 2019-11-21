@@ -35,6 +35,7 @@ public class EnemyAI : CoreAI {
         // TODO : Call the BattleScene here.
         DontDestroyOnLoad(this.gameObject);
         SceneManager.LoadScene("BattleScene",SceneMode.Additive);
+        codeComponent.enabled = false;
     }
     
     public void OnTriggerEnter(Collider other){
