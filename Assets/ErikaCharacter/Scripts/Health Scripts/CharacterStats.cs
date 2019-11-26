@@ -17,7 +17,8 @@ public class CharacterStats : MonoBehaviour
     public float damageStrengthBow;
     public float movementSpeed;
     public int characterLevel;
-
+    public bool dead = false;
+    
     public void ApplyHealth(float health)
     {
         if(Health + health <= maxHealth)
@@ -43,6 +44,7 @@ public class CharacterStats : MonoBehaviour
             Shield = maxShield;
         }
     }
+    
     public void ApplyMagic(float magic)
     {
         if (Magic + magic <= maxMagic)
@@ -55,6 +57,7 @@ public class CharacterStats : MonoBehaviour
             Health = maxHealth;
         }
     }
+    
     public void ApplyDamage(float damage)
     {
         if (Health - damage <= minHealth)
@@ -66,5 +69,9 @@ public class CharacterStats : MonoBehaviour
         {
             Health = minHealth;
         }
+    }
+    
+    public void Kill(){
+        dead = true;
     }
 }
