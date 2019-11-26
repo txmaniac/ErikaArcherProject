@@ -8,8 +8,13 @@ public class PlayerAI : CoreAI{
     
     public Vector3 offset;
     public GameObject enemy;
+    private CharacterStats playerStats, enemyStats;
+    private Animator playerAnim;
+    
     public void Start(){
         enemy = GameObject.FindGameObjectsWithTag("Enemy");
+        playerStats = GetComponent<CharacterStats>();
+        enemyStats = enemy.GetComponent<CharacterStats>();
         CoreAIStart();
     }
     
@@ -30,15 +35,16 @@ public class PlayerAI : CoreAI{
     // attack functions
     
     public void Melee(){
-    
+        // perform a melee attack
+        playerAnim.Play("Melee");
     }
     
     public void SwordHit(){
-    
+        playerAnim.Play("SwordHit");
     }
     
     public void BowArrow(){
-    
+        playerAnim.Play("BowArrow");
     }
     
     
