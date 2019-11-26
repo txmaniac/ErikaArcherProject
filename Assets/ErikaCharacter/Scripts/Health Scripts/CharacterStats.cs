@@ -12,7 +12,9 @@ public class CharacterStats : MonoBehaviour
     public float minShield;
     public float maxMagic;
     public float minMagic;
-    public float damageStrength;
+    public float damageStrengthSword;
+    public float damageStrengthMelee;
+    public float damageStrengthBow;
     public float movementSpeed;
     public int characterLevel;
 
