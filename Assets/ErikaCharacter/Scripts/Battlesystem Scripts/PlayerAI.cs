@@ -19,7 +19,7 @@ public class PlayerAI : CoreAI{
         CoreAIStart();
     }
     
-    //----------------MOVEMENT FUNCTIONS-----------------------//
+    //----------------MOVEMENT FUNCTIONS-----------------------
     // move towards the enemy
     public void MoveToEnemy(GameObject enemy){
         Transform t = enemy.GetComponent<Transform>();
@@ -39,7 +39,7 @@ public class PlayerAI : CoreAI{
         AI_move.LookAt(enemy);
     }
     
-    //---------------ATTACK FUNCTIONS-------------------------//
+    //---------------ATTACK FUNCTIONS-------------------------
     public void Melee(){
         // perform a melee attack
         playerAnim.Play("Melee");
