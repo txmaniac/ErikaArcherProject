@@ -14,7 +14,14 @@ public class SwordHitCompute {
     
     private void OnTriggerEnter(Collider other){
         if(other.gameObject.tag == "Enemy"){
-            enemyStats.ApplyDamage(playerStats.damageStrengthSword);
+            if(!enemyStats.dead){
+                enemyStats.ApplyDamage(playerStats.damageStrengthSword);
+                if(enemyStats.Health <= enemyStats.minHealth){
+                    enemyStats.Kill();
+                }
+            }
         }
+        
+        // extend the effects of weapon collision
     }
 }
