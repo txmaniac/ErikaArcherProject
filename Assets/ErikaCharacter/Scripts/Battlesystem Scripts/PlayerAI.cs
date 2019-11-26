@@ -40,12 +40,12 @@ public class PlayerAI : CoreAI{
     }
     
     public void SwordHit(){
+        // perform a sword hit
         playerAnim.Play("SwordHit");
     }
     
     public void BowArrow(){
+        // perform bow and arrow attack
         playerAnim.Play("BowArrow");
     }
-    
-    
 }
