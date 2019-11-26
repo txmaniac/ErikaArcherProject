@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class SwordHitCompute {
+public class HitCompute : MonoBehaviour {
     public GameObject player, enemy;
     private CharacterStats enemyStats, playerStats;
     
