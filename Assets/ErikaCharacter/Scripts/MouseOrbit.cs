@@ -43,6 +43,8 @@ public class MouseOrbit : MonoBehaviour
 
 		//Actual Camera Rig Transformations
 		Quaternion QT = Quaternion.Euler(_LocalRotation.y, _LocalRotation.x, 0);
+
+        if(Input.GetKey(KeyCode.LeftAlt))
 		this._XForm_Parent.rotation = Quaternion.Lerp(this._XForm_Parent.rotation, QT, Time.deltaTime * OrbitDampening);
 
 		if ( this._XForm_Camera.localPosition.z != this._CameraDistance * -1f )

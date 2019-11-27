@@ -202,6 +202,6 @@ public class CharacterControllerErika : MonoBehaviour
     #endregion
     
     bool AnimatorIsPlaying(){
-            return animator.GetCurrentAnimatorStateInfo(0).length > animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            return characterAnimator.GetCurrentAnimatorStateInfo(0).length > characterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
     }
 }

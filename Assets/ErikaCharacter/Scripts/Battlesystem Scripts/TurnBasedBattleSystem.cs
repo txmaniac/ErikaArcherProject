@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Random;
-using UnityEngine.AI;
 using System.Collections;
-using System.Collections.Generic;
 using System;
 
 public class TurnBasedBattleSystem : MonoBehaviour
@@ -27,8 +24,8 @@ public class TurnBasedBattleSystem : MonoBehaviour
     }   
     
     public void BattleSceneSetup(){
-        playerCharacter.transform = playerPosition;
-        enemyCharacter.transform = enemyPosition;
+        playerCharacter.transform.position = playerPosition.point.position;
+        enemyCharacter.transform.position = enemyPosition.point.position;
     }
     
     public void Update()
@@ -64,7 +61,7 @@ public class TurnBasedBattleSystem : MonoBehaviour
         switch (enemyCharacter.GetComponent<CharacterStats>().characterLevel)
         {
             case 0: // easy level enemies. Doesn't matter who gets the turn. Player always wins if played sensibly.
-                probability = Random.Range(0, 1);
+                probability = UnityEngine.Random.Range(0, 1);
                 if (probability <= .5)
                     turn = false;
                 else
@@ -72,7 +69,7 @@ public class TurnBasedBattleSystem : MonoBehaviour
                 break;
 
             case 1: // easy medium enemies. Gives a 60 : 40 ratio of probability and yet combat is inclined towards the Player more.
-                probability = Random.Range(0, 1);
+                probability = UnityEngine.Random.Range(0, 1);
                 if (probability <= .4)
                     turn = false;
                 else
@@ -80,7 +77,7 @@ public class TurnBasedBattleSystem : MonoBehaviour
                 break;
 
             case 2: // medium enemies. Gives a 70 : 30 ratio of probability and combat gets difficult more inclined that player gets a good start
-                probability = Random.Range(0, 1);
+                probability = UnityEngine.Random.Range(0, 1);
                 if (probability <= .3)
                     turn = false;
                 else
@@ -88,7 +85,7 @@ public class TurnBasedBattleSystem : MonoBehaviour
                 break;
 
             case 3: // hard enemies. Gives a 80 : 20 ratio of probability and combat gets difficult more inclined that player gets a good start
-                probability = Random.Range(0, 1);
+                probability = UnityEngine.Random.Range(0, 1);
                 if (probability <= .2)
                     turn = false;
                 else
@@ -96,7 +93,7 @@ public class TurnBasedBattleSystem : MonoBehaviour
                 break;
 
             case 4: // expert enemies. Gives a 90 : 10 ratio of probability and combat gets difficult most inclined that player gets a good start
-                probability = Random.Range(0, 1);
+                probability = UnityEngine.Random.Range(0, 1);
                 if (probability <= .1)
                     turn = false;
                 else
@@ -170,12 +167,12 @@ public class TurnBasedBattleSystem : MonoBehaviour
         float finalDamage;
         if (attackTurn)
         {
-            finalDamage = Random.Range(playerCharacter.GetComponent<CharacterStats>().damageStrength, playerCharacter.GetComponent<CharacterStats>().damageStrength + UnityEngine.Random.Range(1, offset));
+            finalDamage = UnityEngine.Random.Range(playerCharacter.GetComponent<CharacterStats>().damageStrengthSword, playerCharacter.GetComponent<CharacterStats>().damageStrengthSword + UnityEngine.Random.Range(1, offset));
             Damage(enemyCharacter, finalDamage);
         }
         else
         {
-            finalDamage = Random.Range(enemyCharacter.GetComponent<CharacterStats>().damageStrength, enemyCharacter.GetComponent<CharacterStats>().damageStrength + UnityEngine.Random.Range(1, offset));
+            finalDamage = UnityEngine.Random.Range(enemyCharacter.GetComponent<CharacterStats>().damageStrengthSword, enemyCharacter.GetComponent<CharacterStats>().damageStrengthSword + UnityEngine.Random.Range(1, offset));
             Damage(playerCharacter, finalDamage);
         }
     }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 
-public class CoreAI : Monobehaviour {
+public class CoreAI : MonoBehaviour {
     public Transform AI_transform;
     public Rigidbody AI_rb;
     public NavMeshAgent AI_nav;
@@ -11,15 +11,15 @@ public class CoreAI : Monobehaviour {
     public AIMovement AI_move;
     public AIVision AI_vision;
     public Vector3 dest;
-    public Gameobject player;
+    public GameObject player;
     
     public void CoreAIStart(){
         AI_transform = GetComponent<Transform>();
         AI_rb = GetComponent<Rigidbody>();
         AI_nav = GetComponent<NavMeshAgent>();
-        AI_move = new AIMovement(this.gameobject);
-        AI_vision = new AIVision(this.gameobject);
-        player = Gameobject.FindWithTag("Player");
+        AI_move = new AIMovement(this.gameObject);
+        AI_vision = new AIVision(this.gameObject);
+        player = GameObject.FindWithTag("Player");
     }
     
     public void setDest(Vector3 d){
@@ -29,7 +29,7 @@ public class CoreAI : Monobehaviour {
     public void RandomDestination(float walkDist){
         NavMeshHit hit;
         Vector3 randomDirection = Random.insideUnitSphere * walkDist;
-        randomDirection += my_transform.position;
+        randomDirection += AI_transform.position;
         NavMesh.SamplePosition(randomDirection, out hit, walkDist, NavMesh.AllAreas);
         setDest(hit.position);
     }
@@ -38,7 +38,7 @@ public class CoreAI : Monobehaviour {
         AI_move.moveTo(dest);
     }
     
-    public void moveTo(Gameobject obj){
+    public void moveTo(GameObject obj){
         AI_move.moveTo(obj);
     }
     
@@ -50,7 +50,7 @@ public class CoreAI : Monobehaviour {
         AI_move.LookAt(dest);
     }
     
-    public void LookAt(Gameobject obj){
+    public void LookAt(GameObject obj){
         AI_move.LookAt(obj);
     }
     
@@ -58,16 +58,16 @@ public class CoreAI : Monobehaviour {
         AI_move.LookAt(vec);
     }
     
-    public bool inFieldofView(Gameobject obj){
-        return AI_vision.inFieldofView(obj);
+    public bool inFieldofView(GameObject obj){
+        return AI_vision.InFieldofView(obj);
     }
     
     public bool inFieldofView(Vector3 vec){
-        return AI_vision.inFieldofView(vec);
+        return AI_vision.InFieldofView(vec);
     }
     
     public bool inFieldofView(){
-        return AI_vision.inFieldofView(dest);
+        return AI_vision.InFieldofView(dest);
     }
     
     public void stop(){

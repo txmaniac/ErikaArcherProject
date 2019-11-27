@@ -8,7 +8,7 @@ using UnityEngine;
   TODO: Make a link between the physical object and the inventory item.
 */
 
-public class ConsumableInteractor{
+public class ConsumableInteractor : MonoBehaviour{
   public Consumable consumable;
   public GameObject PlayerHand;
   
@@ -19,7 +19,7 @@ public class ConsumableInteractor{
         // make the object child of the player and copy the transform according to the position which is default to the gameObject.
         // also add the object item in the list of the Inventory.
         transform.parent = PlayerHand.transform;
-        FindInList(consumable)
+        FindInList(consumable);
       }
       
       else{
@@ -30,7 +30,7 @@ public class ConsumableInteractor{
   
   public void FindInList(Consumable consumable){
     bool findFlag = false;
-    int findIndex;
+    int findIndex = 0;
     for(int i=0; i<ConsumableInventoryManager.instance.list.Count; i++){
       // this condition checks if the object already exists in the inventory
       if(consumable.id == ConsumableInventoryManager.instance.list[i].id){

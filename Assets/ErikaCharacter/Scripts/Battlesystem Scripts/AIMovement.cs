@@ -5,10 +5,10 @@ using UnityEngine.AI;
 
 public class AIMovement {
 	Transform transform; // transform of the object
-	RigidBody rb; // rigidbody of the object
+	Rigidbody rb; // rigidbody of the object
 	NavMeshAgent nav; // NavmeshAgent of the object
 	
-	public AIMovement(Gameobject obj){
+	public AIMovement(GameObject obj){
 		transform = obj.GetComponent<Transform>();
 		rb = obj.GetComponent<Rigidbody>();
 		nav = obj.GetComponent<NavMeshAgent>();
@@ -36,7 +36,7 @@ public class AIMovement {
 	}
 	
 	// NPC Looking at a certain object
-	public void LookAt(Gameobject obj){
+	public void LookAt(GameObject obj){
 		Transform t = obj.GetComponent<Transform>();
 		if(t==null)
 			return;
@@ -45,7 +45,7 @@ public class AIMovement {
 	
 	// NPC looking at a certain direction
 	public void LookAt(Vector3 vec){
-		Vector3 lookDirection = pos - transform.position;
+		Vector3 lookDirection = vec - transform.position;
         	lookDirection.y = 0f;
         	Quaternion newRotation = Quaternion.LookRotation(lookDirection);
         	rb.MoveRotation(newRotation);

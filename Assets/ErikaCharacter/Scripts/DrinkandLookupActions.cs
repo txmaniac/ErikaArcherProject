@@ -11,23 +11,17 @@ public class DrinkandLookupActions : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         anim.SetBool("foundDrink", false);
-        anim.SetBool("onSunny", false);
-        anim.SetBool("isShoot", false);
     }
 
     // Update is called once per frame
     void Update()
     { 
-        bool input_interact = Input.GetKey(KeyCode.E);
-        bool input_look = Input.GetKey(KeyCode.Q);
-        bool input_overdraw = Input.GetMouseButton(1);
-        bool input_recoil = Input.GetMouseButtonDown(0);
-        anim.SetBool("foundDrink", input_interact);
-        anim.SetBool("onSunny", input_look);
-        anim.SetBool("isShoot", input_overdraw);
-        
+        bool input_interact = Input.GetKeyDown(KeyCode.E);
 
-        if (input_recoil)
-            anim.SetTrigger("isFire");
+        if (input_interact)
+        {
+            anim.SetBool("foundDrink", input_interact);
+            input_interact = false;
+        }
     }
 }

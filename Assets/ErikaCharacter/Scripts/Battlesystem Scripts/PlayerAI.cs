@@ -1,20 +1,16 @@
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Random;
-using System.Collections;
-using System.Collections.Generic;
 
 public class PlayerAI : CoreAI{
     
     public Vector3 offset;
-    public GameObject enemy;
+    public GameObject enemy, player;
     private CharacterStats playerStats, enemyStats;
     private Animator playerAnim;
     public ScenePoint playerPos;
     
     public void Start(){
-        enemy = GameObject.FindGameObjectsWithTag("Enemy");
-        playerStats = GetComponent<CharacterStats>();
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
+        playerStats = player.GetComponent<CharacterStats>();
         enemyStats = enemy.GetComponent<CharacterStats>();
         CoreAIStart();
     }
@@ -31,12 +27,12 @@ public class PlayerAI : CoreAI{
     
     // move away from enemy
     public void MoveAwayfromEnemy(){
-        AI_move.moveTo(playerPos.postion);
+        AI_move.moveTo(playerPos.point.position);
     }
     
     // look at the enemy
     public void LookAtEnemy(GameObject enemy){
-        AI_move.LookAt(enemy);
+        AI_move.LookAt(enemy.transform.position);
     }
     
     //---------------ATTACK FUNCTIONS-------------------------

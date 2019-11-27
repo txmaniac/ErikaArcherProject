@@ -6,21 +6,21 @@ using UnityEngine.AI;
 
 public class EnemyAI : CoreAI {
     
-    public Gameobject player;
+    public GameObject player;
     public SphereCollider collider;
     public float minDistance;
     public float walkingDist;
     private static bool isWander = true;
+    private Animator AI_anim;
     
     public void Start(){
-        player = Gameobject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player");
         
         collider = GetComponent<SphereCollider>();
         collider.isTrigger = true;
-        
+        AI_anim = GetComponent<Animator>();
         CoreAIStart();
         RandomDestination(walkingDist);
-        codeComponent = GetComponent<EnemyAI>();
     }
     
     public void Update(){
@@ -45,8 +45,7 @@ public class EnemyAI : CoreAI {
     public void BattleInit(){
         // TODO : Call the BattleScene here.
         DontDestroyOnLoad(this.gameObject);
-        SceneManager.LoadScene("BattleScene",SceneMode.Additive);
-        codeComponent.enabled = false;
+        SceneManager.LoadScene("BattleScene");
         isWander = false;
     }
     
@@ -96,11 +95,11 @@ public class EnemyAI : CoreAI {
     }
     
     public void Walk(){
-        AI_anim.SetFloat("Forward", AI.speed * 0.1f);
+        AI_anim.SetFloat("Forward", AI_nav.speed * 0.1f);
     }
     
     public void Run(){
-        AI_anim.SetFloat("Forward", AI.speed);
+        AI_anim.SetFloat("Forward", AI_nav.speed);
     }
     
     IEnumerator Wait(){

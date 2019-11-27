@@ -9,6 +9,7 @@ public class Consumable : Item
     public float heal = 0f;
     public float magic = 0f;
     public float shield = 0f;
+    internal int count;
 
     Consumable()
     {
