@@ -57,12 +57,14 @@ public class CharacterControllerErika : MonoBehaviour
     #region Movement
     public void LocomotionForward(float vertical)
     {
-        characterGameObject.transform.Translate(0, 0, vertical * Time.deltaTime);
+        if(!AnimatorIsPlaying())
+            characterGameObject.transform.Translate(0, 0, vertical * Time.deltaTime);
     }
 
     public void LocomotionRotate(float horizontal)
     {
-        characterGameObject.transform.Rotate(0, horizontal * Time.deltaTime, 0);
+        if(!AnimatorIsPlaying())
+            characterGameObject.transform.Rotate(0, horizontal * Time.deltaTime, 0);
     }
     #endregion
 
@@ -77,7 +79,7 @@ public class CharacterControllerErika : MonoBehaviour
     #region Locomotion Animation Events
     public void Jump()
     {
-        if (CheckGroundStatus())
+        if (CheckGroundStatus() && !AnimatorIsPlaying())
         {
             characterRigidBody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
             characterRigidBody.AddForce(Physics.gravity * (characterCollider.center.y/2));
@@ -198,4 +200,8 @@ public class CharacterControllerErika : MonoBehaviour
         yield return new WaitForSeconds(num);
     }
     #endregion
+    
+    bool AnimatorIsPlaying(){
+            return animator.GetCurrentAnimatorStateInfo(0).length > animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+    }
 }
