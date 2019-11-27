@@ -57,14 +57,12 @@ public class CharacterControllerErika : MonoBehaviour
     #region Movement
     public void LocomotionForward(float vertical)
     {
-        if(!AnimatorIsPlaying())
-            characterGameObject.transform.Translate(0, 0, vertical * Time.deltaTime);
+        characterGameObject.transform.Translate(0, 0, vertical * Time.deltaTime);
     }
 
     public void LocomotionRotate(float horizontal)
     {
-        if(!AnimatorIsPlaying())
-            characterGameObject.transform.Rotate(0, horizontal * Time.deltaTime, 0);
+        characterGameObject.transform.Rotate(0, horizontal * Time.deltaTime, 0);
     }
     #endregion
 
