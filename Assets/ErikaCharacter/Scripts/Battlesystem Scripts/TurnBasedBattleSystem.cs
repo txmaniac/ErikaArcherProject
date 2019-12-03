@@ -7,9 +7,13 @@ public class TurnBasedBattleSystem : MonoBehaviour
 
     public GameObject playerCharacter;
     public GameObject enemyCharacter;
+    public PlayerAI player;
+    public EnemyAI enemy;
+    private Animator playerAnim;
+    private Animator enemyAnim;
     public float attackSpeed;
-    private bool attackTurn;
-    public int a = 1;
+    private static bool attackTurn; // attackTurn == true for player's turn; attackTurn == false for enemy's turn
+    public static int AttackButton;
     public ScenePoint playerPosition;
     public ScenePoint enemyPosition;
     public GameManager battleManager;
@@ -20,6 +24,10 @@ public class TurnBasedBattleSystem : MonoBehaviour
         attackTurn = FirstTurnAllocator();
         playerCharacter = GameObject.FindGameObjectWithTag("Player");
         enemyCharacter = GameObject.FindGameObjectWithTag("Enemy");
+        player = playerCharacter.GetComponent<PlayerAI>();
+        enemy = enemyCharacter.GetComponent<EnemyAI>();
+        playerAnim = playerCharacter.GetComponent<Animator>();
+        enemyAnim = enemyCharacter.GetComponent<Animator>();
         BattleSceneSetup();
     }   
     
@@ -42,13 +50,23 @@ public class TurnBasedBattleSystem : MonoBehaviour
         }
     }
 
+    // this function should be called for turns but should wait for the input. So basically we should toggle after a button click
     public void GameMove(GameObject attacker, GameObject defender)
     {
         // TODO: A menu system which communicates with this function in order to perform an action
         // This function basically handles the actions performed by both player and AI
         // Modular function which involves a conditional arg between player and AI to toggle and perform actions
         
+        if(attacker.gameObject.tag == "Player"){
+            if(AttackButton != 0){
+                
+                CallAttackPlayer();
+            }
+        }
         
+        else{
+            CallAttackEnemy();
+        }
     }
 
     public bool FirstTurnAllocator()
@@ -103,8 +121,46 @@ public class TurnBasedBattleSystem : MonoBehaviour
 
         return turn;
     }
-
-    public void CallAttack(int AttackButton)
+    
+    // --------------- BUTTON FUNCTIONS -----------------
+    
+    public void GUIAttack1(){
+        // Melee
+        AttackButton = 1;
+    }
+    
+    public void GUIAttack2(){
+        // Sword
+        AttackButton = 2;
+    }
+    
+    public void GUIAttack3(){
+        // Bow and Arrow
+        AttackButton = 3;
+    }
+    
+    public void GUIAttack4(){
+        // Mystic 1
+        AttackButton = 4;
+    }
+    
+    public void GUIAttack5(){
+        // Mystic 2
+        AttackButton = 5;
+    }
+    
+    public void GUIAttack6(){
+        // Mystic 3
+        AttackButton = 6;
+    }
+    
+    public void ResetAttackButton(){
+        AttackButton = 0;
+    }
+    
+    // --------- ATTACK FUNCTIONS -------------------
+    
+    public void CallAttackPlayer()
     {
 
         float offset;
@@ -115,68 +171,105 @@ public class TurnBasedBattleSystem : MonoBehaviour
             case 1: // run attack script which we configured individually.
                     // Kick combo
                 offset = 10f;
-                Attack(offset);
+                // animate before registering an attack
+                playerAnim.Play("Attack1");
                 break;
 
             case 2: // run attack script which we configured individually. Sword attack for now
                 offset = 8f;
-                Attack(offset);
+                // animate before registering an attack
+                playerAnim.Play("Attack2");
                 break;
 
             case 3: // run attack script which we configured individually. Bow and Arrow for now
                 offset = 7f;
-                Attack(offset);
+                // animate before registering an attack
+                playerAnim.Play("Attack3");
                 break;
 
             case 4: // run attack script which we configured individually. Mystic 1 for now
                 offset = 4f;
-                Attack(offset);
+                // animate before registering an attack
+                playerAnim.Play("Attack4");
                 break;
 
             case 5: // run attack script which we configured individually. Mystic 2 for now
                 offset = 3f;
-                Attack(offset);
+                // animate before registering an attack
+                playerAnim.Play("Attack5");
                 break;
 
             case 6: // run attack script which we configured individually. Mystic 3 for now
                 offset = 2f;
-                Attack(offset);
+                // animate before registering an attack
+                playerAnim.Play("Attack6");
                 break;
         }
+        ToggleTurn();
+        ResetAttackButton();
     }
-
-    public void Damage(GameObject character, float damageAmount)
+    
+    public void CallAttackEnemy()
     {
-        // GetComponent<CharacterStats> is a class which is present on both enemy and player which basically handles the physical attributes of a character like :
-        // health
-        // damangeAmount
-        // character class of the enemy
-        // movement speed
 
-        // reducing the health of the character (can be player/ enemy)
-        character.GetComponent<CharacterStats>().ApplyDamage(damageAmount);
-    }
-
-    public void Attack(float offset)
-    {
-        // performing the attack
-
-        // final damage calculates a UnityEngine.UnityEngine.Random range between ( damageStrength , damageStrength + offset )
-        // adds a level of uncertainty in the attack. But maintains a threshold so that player doesn't have any disadvantage
-
-        float finalDamage;
-        if (attackTurn)
+        float offset;
+        switch (UnityEngine.Random.Range(1,7))
         {
-            finalDamage = UnityEngine.Random.Range(playerCharacter.GetComponent<CharacterStats>().damageStrengthSword, playerCharacter.GetComponent<CharacterStats>().damageStrengthSword + UnityEngine.Random.Range(1, offset));
-            Damage(enemyCharacter, finalDamage);
-        }
-        else
-        {
-            finalDamage = UnityEngine.Random.Range(enemyCharacter.GetComponent<CharacterStats>().damageStrengthSword, enemyCharacter.GetComponent<CharacterStats>().damageStrengthSword + UnityEngine.Random.Range(1, offset));
-            Damage(playerCharacter, finalDamage);
-        }
-    }
+            // 1, 2, 3 are melee and weapon attacks.
+            // 4, 5, 6 are some magical attacks.
+            case 1: // Kick combo
+                offset = 10f;
+                // animate before registering an attack
+                playerAnim.Play("Attack1");
+                break;
 
+            case 2: 
+                offset = 8f;
+                // animate before registering an attack
+                playerAnim.Play("Attack2");
+                break;
+
+            case 3: 
+                offset = 7f;
+                // animate before registering an attack
+                playerAnim.Play("Attack3");
+                break;
+
+            case 4:
+                offset = 4f;
+                // animate before registering an attack
+                playerAnim.Play("Attack4");
+                break;
+
+            case 5:
+                offset = 3f;
+                // animate before registering an attack
+                playerAnim.Play("Attack5");
+                break;
+
+            case 6:
+                offset = 2f;
+                // animate before registering an attack
+                playerAnim.Play("Attack6");
+                break;
+        }
+        ToggleTurn();
+        ResetAttackButton();
+    }
+    
+//     public void Attack(float offset)
+//     {
+//         // perform the attack animation and all the visual changes in game
+//         if(attackTurn){
+//             case()
+//         }
+//     }
+// -------- HELPER FUNCTIONS ---------------
+    
+    public void ToggleTurn(){
+        attackTurn = !attackTurn;
+    }
+    
     IEnumerator WaitForEverything()
     {
         // adds a delay of 2 sec
